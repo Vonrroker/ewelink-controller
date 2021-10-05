@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>eWelink</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        html, div, body {
+            height: 95%;
+        }
+        .main-div {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        button {
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-style: none;
+            background-color: rgba(255, 255, 255, 0);
+            margin: auto;
+
+        }
+
+        button:active {
+            outline: none;
+            border: none;
+        }
+
+        #ventilador {
+            border: none;
+            outline: none;
+            width: 200px;
+
+
+            object-fit: cover;
+        }
+
+
+        .button-div {
+            position: relative;
+        }
+
+        /* The popup form - hidden by default */
+        .form-popup {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50%;
+          border: 3px solid #f1f1f1;
+          z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+          max-width: 300px;
+          padding: 10px;
+          background-color: white;
+        }
+
+        /* Full-width input fields */
+        .form-container input[type=text], .form-container input[type=password] {
+          width: 100%;
+          padding: 15px;
+          margin: 5px 0 22px 0;
+          border: none;
+          background: #f1f1f1;
+        }
+
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+          background-color: #ddd;
+          outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        #login {
+          background-color: #04AA6D;
+          color: white;
+          padding: 16px 20px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          margin-bottom:10px;
+          opacity: 0.8;
+        }
+
+    </style>
+</head>
+<body style="background: white;">
+    <div class="main-div" id="mainDiv">
+        <button onclick="toggleDevice()" id="btn">
+            <div class="button-div">
+                <img src="./src/assets/ventilador_parado.gif" alt="Ventilador" id="ventilador" >
+            </div>
+        </button>
+    </div>
+
+    <div class="form-popup" id="myForm">
+      <div class="form-container">
+        <h1>Login</h1>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="password" required>
+
+        <button onclick="logar()" id="login">Login</button>
+      </div>
+      
+    </div>
+    <script src="./src/index.js"></script>
+</body>
+</html>
