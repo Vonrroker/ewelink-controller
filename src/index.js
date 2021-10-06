@@ -87,7 +87,11 @@ if (!window.localStorage.token || !window.localStorage.apiKey) {
 } else {
   service = connection(window.localStorage.token, window.localStorage.apiKey);
 
-  webSocket(service);
+  try {
+    webSocket(service);
+  } catch (error) {
+    console.log(error);
+  }
 
   main(service);
 }
@@ -131,13 +135,13 @@ async function main(service) {
     deviceState = await service.getDevicePowerState(deviceId);
     console.log("Sucesso ao requisitar status do device.");
     console.log(deviceState);
+    currentdevice.state = deviceState.state == "on";
   } catch (error) {
     console.log("Erro ao requisitar status do device.");
     console.log(error);
+    loading_state.after();
     return main();
   }
-
-  currentdevice.state = deviceState.state == "on";
 
   loading_state.after();
 }
