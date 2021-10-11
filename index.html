@@ -8,6 +8,25 @@
         html, div, body {
             height: 95%;
         }
+
+        #reloadDiv {
+          display: block;
+          position: absolute !important;
+          top: 0;
+
+        }
+
+        #btnReload {
+          background-color: #04AA6D;
+          color: white;
+          padding: 16px 20px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          margin-bottom:10px;
+          opacity: 0.8;
+        }
+
         .main-div {
             display: none;
             flex: 1;
@@ -93,6 +112,9 @@
     </style>
 </head>
 <body style="background: white;">
+    <div id="reloadDiv">
+      <button onclick="reload()" id="btnReload">Reload</button>
+    </div>
     <div class="main-div" id="mainDiv">
         <button onclick="toggleDevice()" id="btn">
             <div class="button-div">

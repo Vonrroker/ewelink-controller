@@ -40,8 +40,8 @@ async function logar() {
   main();
 }
 
-async function webSocket(service) {
-  await service.openWebSocket(async (data) => {
+async function getWebSocket(service) {
+  return await service.openWebSocket(async (data) => {
     const resp = data;
 
     if (resp.action === "update" && resp.params.switch === "on") {
@@ -79,6 +79,14 @@ const connection = (token, apiKey) =>
   });
 
 let service;
+let webSocket;
+
+async function reload() {
+  service = connection(window.localStorage.token, window.localStorage.apiKey);
+  webSocket.close();
+  webSocket = await getWebSocket(service);
+  main(service);
+}
 
 if (!window.localStorage.token || !window.localStorage.apiKey) {
   mainDiv.style.display = "none";
@@ -86,12 +94,6 @@ if (!window.localStorage.token || !window.localStorage.apiKey) {
   console.log("Usuario não logado, encaminhando para login.");
 } else {
   service = connection(window.localStorage.token, window.localStorage.apiKey);
-
-  try {
-    webSocket(service);
-  } catch (error) {
-    console.log(error);
-  }
 
   main(service);
 }
@@ -126,6 +128,13 @@ var currentdevice = {
 async function main(service) {
   mainDiv.style.display = "flex";
   loading_state.before();
+
+  try {
+    webSocket = await getWebSocket(service);
+  } catch (error) {
+    console.log(error);
+  }
+
   let deviceState;
   // console.log(service);
   // const cred = await service.getCredentials();
@@ -140,7 +149,7 @@ async function main(service) {
     console.log("Erro ao requisitar status do device.");
     console.log(error);
     loading_state.after();
-    return main();
+    // return main(service);
   }
 
   loading_state.after();
