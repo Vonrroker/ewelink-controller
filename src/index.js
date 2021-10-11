@@ -101,7 +101,15 @@ if (!window.localStorage.token || !window.localStorage.apiKey) {
 async function toggleDevice() {
   loading_state.before();
 
-  const status = await service.toggleDevice(deviceId);
+  let status;
+  try {
+    status = await service.toggleDevice(deviceId);
+  } catch (error) {
+    console.log("erro ao se conectar ao device");
+    console.log(error);
+    loading_state.after();
+    return;
+  }
 
   if (status.status == "ok") {
     currentdevice.state = !currentdevice.state;
